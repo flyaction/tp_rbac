@@ -6,20 +6,18 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Gentelella Alela! | </title>
-
+    <title>网站后台登录</title>
     <!-- Bootstrap -->
-    <link href="./plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="./plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
     <!-- <link href="./plugins/nprogress/nprogress.css" rel="stylesheet"> -->
     <!-- Animate.css -->
-    <link href="./plugins/animate.css/animate.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/plugins/animate.css/animate.min.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="./build/css/custom.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/build/css/custom.min.css" rel="stylesheet">
   </head>
 
   <body class="login">
@@ -30,21 +28,19 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form>
+            <form id="myLogin" name="myLogin" method="post" action="{:U(MODULE_NAME.'/Login/login')}">
               <h1>登录</h1>
               <div>
-                <input type="text" class="form-control" placeholder="用户名" required="" />
+                <input type="text" class="form-control" name="username" placeholder="用户名" required />
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="密码" required="" />
+                <input type="password" class="form-control" name="userpass" placeholder="密码" required />
               </div>
               <div>
-                <a class="btn btn-default submit" href="javascript:;">登录</a>
+                <a class="btn btn-default submit" href="javascript:loginSubmit()" >登录</a>
                 <a class="reset_pass" href="#">忘记密码</a>
               </div>
-
               <div class="clearfix"></div>
-
               <div class="separator">
                 <p class="change_link">没有账号?
                   <a href="#signup" class="to_register"> 注册 </a>
@@ -99,5 +95,25 @@
         </div>
       </div>
     </div>
+    <!-- jQuery -->
+    <script src="__PUBLIC__/plugins/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('input').keyup(function (event) {
+                if (event.keyCode == "13") {
+                    loginSubmit();
+                }
+            });
+        })
+        function loginSubmit(){
+            var username = $("input[name='username']").val();
+            var userpass = $("input[name='userpass']").val();
+            if(username && userpass){
+                document.myLogin.submit();
+            }else{
+                alert('用户名和密码不能为空!');
+            }
+        }
+    </script>
   </body>
 </html>
