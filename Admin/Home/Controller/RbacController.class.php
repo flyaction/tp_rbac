@@ -2,65 +2,20 @@
 namespace Home\Controller;
 use Think\Controller;
 class RbacController extends CommonController {
-    public function index(){
-    	//$this->user = D('AdminRelation')->relation(true)->field('password',true)->select();
+    public function user(){
+        $db_prefix = C('DB_PREFIX');
+        $user = M('admin')->alias('user')->field('user.id,user.username,user.realname,user.logintime,user.status,role.name as rolename')->join('left join '.$db_prefix.'role as role on role.id=user.roleid')->select();
+        $this->assign('user',$user);
         $this->display();
     }
 
-    //更改用户状态
-    public function changeStatus(){
-        //p(I('get.'));
-        $data ['id']= I('get.id');
-        if(I('get.status')){
-            $data ['admin_status']= 0;  
-        }else{
-            $data ['admin_status']= 1;
-
-        }
-
-        //p($data);die;
-
-        $admin = M('admin');
-        $a = $admin->save($data);
-        if($a){
-            $this->success('操作成功',U(MODULE_NAME.'/Rbac/index'));
-               
-            }else{
-               $this->error('操作失败');
-               
-        }
-
-
-   }
-
-    //重置密码，默认重置密码为你的账号
-    public function resetPassUser(){
-       
-        $id = I('id','','intval');
-
-        if($id!=1){           
-            $user = M('admin')->where('id='.$id)->find();
-            $admin_pass = md5($user['admin_name']);
-            $data = array(
-                'id'=>$id,
-                'admin_pass'=>$admin_pass
-            );
-
-
-            $user_change = M('admin');
-            $user_change->save($data);
-
-            $this->success('密码重置成功'); 
-        
-        }else{
-            $this->error('非法请求');
-
-        }
-
-        
-        
-
+    //添加用户
+    public function addUser(){
+        $role = M('role')->select();
+        $this->assign('role',$role);
+        $this->display();
     }
+
    //修改用户角色
    public function updateUser(){
         $id = I('get.id','','intval');
@@ -124,14 +79,7 @@ class RbacController extends CommonController {
         
     }
 
-    //添加用户
-    public function addUser(){
 
-        $role = M('role')->select();
-        $this->role = $role;    
-        $this->display();
-            
-    }
     //给用户分配角色   
     public function addUserHandle(){
         //p(I('post.'));die;   

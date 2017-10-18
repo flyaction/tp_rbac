@@ -16,7 +16,7 @@ return array(
     'NOT_AUTH_MODULE' => 'Index',//无需认证模块
 
     'RBAC_ROLE_TABLE' => C('DB_PREFIX').'role', //角色表名称
-    'RBAC_USER_TABLE' => C('DB_PREFIX').'role_user',//用户表名称
+    'RBAC_USER_TABLE' => C('DB_PREFIX').'admin',//用户表名称
     'RBAC_ACCESS_TABLE' => C('DB_PREFIX').'access',//权限表名称
     'RBAC_NODE_TABLE' => C('DB_PREFIX').'node',//节点表名称
 
