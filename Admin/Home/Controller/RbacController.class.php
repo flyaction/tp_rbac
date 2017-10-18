@@ -11,8 +11,62 @@ class RbacController extends CommonController {
 
     //添加用户
     public function addUser(){
+        if(IS_POST){
+            $user = array(
+                'username'=>I('post.username'),
+                'userpass'=>md5(I('post.userpass')),
+                'realname'=>I('post.realname'),
+                'roleid'=>I('post.roleid'),
+                'addtime'=>date('Y-m-d H:i:s'),
+                'status'=>I('post.status'),
+            );
+            $checkUser = M('admin')->where(array('username'=>$user['username']))->find();
+            if($checkUser){
+                $this->error("该用户名已经存在");
+            }
+            if(M('admin')->add($user)){
+                $this->success('添加成功',U(MODULE_NAME.'/Rbac/user'));
+            }else{
+                $this->error('添加失败');
+            }
+        }else{
+            $role = M('role')->select();
+            $this->assign('role',$role);
+            $this->display();
+        }
+    }
+
+    //角色列表
+    public function role(){
         $role = M('role')->select();
         $this->assign('role',$role);
+        $this->display();
+    }
+
+    //添加角色
+    public function addRole(){
+        if(IS_POST){
+            $role = array(
+                'name'=>I('post.name'),
+                'remark'=>md5(I('post.remark')),
+                'status'=>I('post.status'),
+            );
+            if(M('role')->add($role)){
+                $this->success('添加成功',U(MODULE_NAME.'/Rbac/role'));
+            }else{
+                $this->error('添加失败');
+            }
+        }else{
+            $this->display();
+        }
+    }
+
+    //菜单列表
+    public function menu(){
+        $field = array('id','name','title','pid','status');
+        $menu = M('node')->field($field)->order('sort')->select();
+        //$node = node_merge($node);
+        $this->assign('menu',$menu);
         $this->display();
     }
 
@@ -202,30 +256,7 @@ class RbacController extends CommonController {
     }
         
 
-    //角色列表
-    public function role(){
-        $role = M('role')->select();
-        $this->role = $role;
-        $this->display();
-    }
 
-    //添加角色
-     public function addRole(){
-             
-        $this->display();
-   	}
-
-   	//添加角色表单
-    public function addRoleHandle(){
-        if(M('role')->add($_POST)){
-            $this->success('添加成功',U(MODULE_NAME.'/Rbac/role','',''));
-                
-        }else{
-            $this->error('添加失败'); 
-                
-        }
-             
-   	}
     //节点列表
     public function node(){
         $field = array('id','name','title','pid','status');

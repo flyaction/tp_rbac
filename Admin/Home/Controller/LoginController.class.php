@@ -16,7 +16,7 @@ class LoginController extends Controller {
 
     	if(!$user){$this->error("用户不存在");}
         if($user['userpass'] != $userpass){$this->error("密码不正确");}
-        if($user['status']!=0){$this->error("用户被锁定，不能登录!");}
+        if($user['status']!=1){$this->error("用户状态异常，不能登录!");}
 
         $data = array(
             'id' => $user['id'],

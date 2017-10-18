@@ -5,7 +5,7 @@
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>系统管理 <small>添加用户</small></h3>
+                <h3>系统管理 <small>添加角色</small></h3>
             </div>
 
             <div class="title_right">
@@ -18,57 +18,40 @@
             <div class="col-md-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>添加用户</h2>
+                        <h2>添加角色</h2>
                         <ul class="nav navbar-right">
-                            <a href="{:U(MODULE_NAME.'/Rbac/user')}" class="btn btn-sm btn-primary">返回</a>
+                            <a href="{:U(MODULE_NAME.'/Rbac/role')}" class="btn btn-sm btn-primary">返回</a>
                         </ul>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
                         <br />
-                        <form id="form-user" data-parsley-validate class="form-horizontal form-label-left" method="post" action="{:U(MODULE_NAME.'/Rbac/addUser')}">
+                        <form id="form-user" data-parsley-validate class="form-horizontal form-label-left" method="post" action="{:U(MODULE_NAME.'/Rbac/addRole')}">
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="username">用户名 <span class="required">*</span>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">角色名 <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="username" name="username" required="required" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="userpass">用户密码 <span class="required">*</span>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="password" id="userpass" name="userpass" required="required" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="realname" class="control-label col-md-3 col-sm-3 col-xs-12">真实姓名<span class="required">*</span>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="realname" name="realname" class="form-control col-md-7 col-xs-12"  >
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="roleid" class="control-label col-md-3 col-sm-3 col-xs-12">用户角色<span class="required">*</span>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select id="roleid" name="roleid" class="form-control" required>
-                                        <foreach name='role' item='v'>
-                                        <option value="{$v.id}">{$v.name}</option>
-                                        </foreach>
-                                    </select>
+                                    <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="status" class="control-label col-md-3 col-sm-3 col-xs-12">用户状态<span class="required">*</span>
+                                <label for="status" class="control-label col-md-3 col-sm-3 col-xs-12">角色状态<span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select id="status" name="status" class="form-control">
                                         <option value="1">正常</option>
                                         <option value="2">锁定</option>
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="remark" class="control-label col-md-3 col-sm-3 col-xs-12">角色描述<span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="remark" name="remark" class="form-control col-md-7 col-xs-12"  >
                                 </div>
                             </div>
 
