@@ -63,11 +63,47 @@ class RbacController extends CommonController {
 
     //菜单列表
     public function menu(){
-        $field = array('id','name','title','pid','status');
-        $menu = M('node')->field($field)->order('sort')->select();
-        //$node = node_merge($node);
+        $node = M('node')->order('sort')->select();
+        $menu = [];
+        foreach($node as $k=>$v){
+            if($v['pid'] == 0){
+                if(isset($menu[$v['id']])){
+                    $menu[$v['id']] = array_merge($v,$menu[$v['id']]);;
+                }else{
+                    $menu[$v['id']] = $v;
+                }
+            }else{
+                $menu[$v['pid']]['list'][$v['id']] = $v;
+            }
+        }
         $this->assign('menu',$menu);
         $this->display();
+    }
+
+    //添加菜单
+    public function addMenu(){
+        if(IS_POST){
+            $menu = array(
+                'title'=>I('post.title'),
+                'pid'=>I('post.pid'),
+                'controller'=>I('post.controller'),
+                'action'=>I('post.action'),
+                'sort'=>I('post.sort'),
+                'remark'=>I('post.remark'),
+                'show'=>I('post.show'),
+            );
+            $menu['level'] = $menu['pid'] ? 2 : 1;
+            if(M('node')->add($menu)){
+                $this->success('添加成功',U(MODULE_NAME.'/Rbac/menu'));
+            }else{
+                $this->error('添加失败');
+            }
+
+        }else{
+            $node = M('node')->field('id,controller,action,title')->order('sort')->where(array('pid'=>0))->select();
+            $this->assign('node',$node);
+            $this->display();
+        }
     }
 
    //修改用户角色
