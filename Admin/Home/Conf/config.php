@@ -12,7 +12,7 @@ return array(
     'ADMIN_AUTH_KEY' => 'superadmin',
     'USER_AUTH_ON' => true, //是否需要认证
     'USER_AUTH_TYPE' => 1,//认证类型,1:登陆验证2:时时验证
-
+    'USER_AUTH_KEY' => 'uid',//认证识别号
     'NOT_AUTH_MODULE' => 'Index',//无需认证模块
 
     'RBAC_ROLE_TABLE' => C('DB_PREFIX').'role', //角色表名称

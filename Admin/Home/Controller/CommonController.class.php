@@ -8,7 +8,7 @@ class CommonController extends Controller {
             $this->redirect(MODULE_NAME.'/Login/index');
         }
         if(C('USER_AUTH_ON')){
-        	RBAC::AccessDecision(MODULE_NAME) || $this->error('没有权限');
+        	RBAC::AccessDecision() || $this->error('没有权限');
         }
     }
 }
