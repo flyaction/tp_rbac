@@ -35,6 +35,35 @@ class RbacController extends CommonController {
             $this->display();
         }
     }
+    //修改用户
+    public function editUser(){
+        if(IS_POST){
+            $data = array(
+                'id'=>I('post.id'),
+                'username'=>I('post.username'),
+                'realname'=>I('post.realname'),
+                'roleid'=>I('post.roleid'),
+                'status'=>I('post.status'),
+            );
+            if($userpass=I('post.userpass')){
+                $data['userpass'] = md5($userpass);
+            }
+            if(M('user')->save($data)){
+                $this->success('修改成功',U(MODULE_NAME.'/Rbac/user'));
+            }else{
+                $this->error('修改失败');
+            }
+        }else{
+            $id = I('get.id',0,'intval');
+            if(!$id || !$data = M('admin')->where('id='.$id)->find()){
+                $this->error('非法请求!');
+            }
+            $role = M('role')->field('id,name')->select();
+            $this->assign('role',$role);
+            $this->assign('user',$data);
+            $this->display();
+        }
+    }
 
     //角色列表
     public function role(){
