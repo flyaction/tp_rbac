@@ -1,0 +1,99 @@
+
+<include file="Index:header" />
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>系统管理 <small>修改角色</small></h3>
+            </div>
+
+            <div class="title_right">
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>修改角色</h2>
+                        <ul class="nav navbar-right">
+                            <a href="{:U(MODULE_NAME.'/Rbac/role')}" class="btn btn-sm btn-primary">返回</a>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <form id="form-user" data-parsley-validate class="form-horizontal form-label-left" method="post" action="{:U(MODULE_NAME.'/Rbac/editRole')}">
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">角色名 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12" value="{$data.name}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="status" class="control-label col-md-3 col-sm-3 col-xs-12">角色状态<span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select id="status" name="status" class="form-control">
+                                        <option value="1" <if condition="$data.status eq 1">selected</if>>正常</option>
+                                        <option value="2" <if condition="$data.status eq 1">selected</if>>锁定</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="remark" class="control-label col-md-3 col-sm-3 col-xs-12">角色描述<span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="remark" name="remark" class="form-control col-md-7 col-xs-12"  value="{$data.remark}">
+                                </div>
+                            </div>
+
+                            <div class="ln_solid"></div>
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <input type="hidden" name="id" value="{$data.id}" >
+                                    <button class="btn btn-primary" type="reset">Reset</button>
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+</div>
+<!-- /page content -->
+<!-- footer content -->
+<include file="Index:footer" />
+<!-- /footer content -->
+</div>
+</div>
+
+<!-- jQuery -->
+<script src="__PUBLIC__/plugins/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="__PUBLIC__/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Custom Theme Scripts -->
+<script src="__PUBLIC__/build/js/custom.js"></script>
+
+<!-- Datatables -->
+<script src="__PUBLIC__/plugins/datatables.net/js/jquery.dataTables.js"></script>
+
+<script>
+    $(function(){
+        $('#datatable').dataTable();
+    })
+</script>
+
+</body>
+</html>

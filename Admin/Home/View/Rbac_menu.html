@@ -44,7 +44,7 @@
                             <tr>
                                 <td>
                                     <foreach name="v.list" item="m">
-                                    <div class="col-md-4 col-sm-4 col-xs-4">
+                                    <div class="col-md-4 col-sm-4 col-xs-4 singleData">
                                         {$m.title}-{$m.controller}/{$m.action}
                                         <a href="{:U(MODULE_NAME.'/Rbac/editMenu',array('id'=>$m['id']))}" class="btn btn-info btn-xs"> <i class="fa fa-pencil"></i> 编辑 </a>
                                         <if condition="$m.show eq 1">

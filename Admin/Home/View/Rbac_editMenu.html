@@ -32,7 +32,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">菜单名称 <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="title" name="title" required="required" class="form-control col-md-7 col-xs-12" value="{$menu.title}">
+                                    <input type="text" id="title" name="title" required="required" class="form-control col-md-7 col-xs-12" value="{$data.title}">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -40,9 +40,9 @@
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select id="pid" name="pid" class="form-control" required>
-                                        <option value="0" <if condition="$menu.pid eq 0">selected</if> >顶级菜单</option>
+                                        <option value="0" <if condition="$data.pid eq 0">selected</if> >顶级菜单</option>
                                         <foreach name='node' item='v'>
-                                            <option value="{$v.id}" <eq name="menu.pid" value="$v.id">selected</eq> >--{$v.title}[{$v.controller}/{$v.action}]</option>
+                                            <option value="{$v.id}" <eq name="data.pid" value="$v.id">selected</eq> >--{$v.title}[{$v.controller}/{$v.action}]</option>
                                         </foreach>
                                     </select>
                                 </div>
@@ -51,28 +51,28 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="controller">控制器 <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="controller" name="controller" required="required" class="form-control col-md-7 col-xs-12" value="{$menu.controller}">
+                                    <input type="text" id="controller" name="controller" required="required" class="form-control col-md-7 col-xs-12" value="{$data.controller}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="action">方法名 <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="action" name="action" required="required" class="form-control col-md-7 col-xs-12" value="{$menu.action}">
+                                    <input type="text" id="action" name="action" required="required" class="form-control col-md-7 col-xs-12" value="{$data.action}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="sort">排序 <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="sort" name="sort" required="required" class="form-control col-md-7 col-xs-12" value="{$menu.sort}">
+                                    <input type="text" id="sort" name="sort" required="required" class="form-control col-md-7 col-xs-12" value="{$data.sort}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="remark">说明
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="remark" name="remark" class="form-control col-md-7 col-xs-12" value="{$menu.remark}">
+                                    <input type="text" id="remark" name="remark" class="form-control col-md-7 col-xs-12" value="{$data.remark}">
                                 </div>
                             </div>
 
@@ -81,8 +81,8 @@
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select id="show" name="show" class="form-control">
-                                        <option value="1" <if condition="$menu.show eq 1">selected</if> >显示</option>
-                                        <option value="2" <if condition="$menu.show neq 1">selected</if> >隐藏</option>
+                                        <option value="1" <if condition="$data.show eq 1">selected</if> >显示</option>
+                                        <option value="2" <if condition="$data.show neq 1">selected</if> >隐藏</option>
                                     </select>
                                 </div>
                             </div>
@@ -90,7 +90,7 @@
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                    <input type="hidden" name="id" value="{$menu.id}" >
+                                    <input type="hidden" name="id" value="{$data.id}" >
                                     <button class="btn btn-primary" type="reset">Reset</button>
                                     <button type="submit" class="btn btn-success">Submit</button>
                                 </div>

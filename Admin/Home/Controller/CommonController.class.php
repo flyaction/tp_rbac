@@ -20,7 +20,7 @@ class CommonController extends Controller {
     private function getMenulist(){
         $prefix = C('DB_PREFIX');
         if(session(C('ADMIN_AUTH_KEY'))){
-            $node = M('node')->order('sort')->select();
+            $node = M('node')->alias('node')->order('sort')->where('node.show=1')->select();
         }else{
             $node = M('access')->alias('access')->field('node.*')->join('left join '.$prefix.'node as node on access.node_id = node.id')->where('access.role_id='.$_SESSION['admin_roleid'].' and node.show=1')->order('node.sort')->select();
         }

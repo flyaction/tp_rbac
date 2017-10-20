@@ -32,7 +32,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="username">用户名 <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="username" name="username" required="required" class="form-control col-md-7 col-xs-12" value="{$user.username}">
+                                    <input type="text" id="username" name="username" required="required" class="form-control col-md-7 col-xs-12" value="{$data.username}">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -46,7 +46,7 @@
                                 <label for="realname" class="control-label col-md-3 col-sm-3 col-xs-12">真实姓名<span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="realname" name="realname" class="form-control col-md-7 col-xs-12"  value="{$user.realname}">
+                                    <input type="text" id="realname" name="realname" class="form-control col-md-7 col-xs-12"  value="{$data.realname}">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -55,7 +55,7 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select id="roleid" name="roleid" class="form-control" required>
                                         <foreach name='role' item='v'>
-                                            <option value="{$v.id}" <eq name="user.id" value="$v.id">selected</eq>>{$v.name}</option>
+                                            <option value="{$v.id}" <eq name="data.id" value="$v.id">selected</eq>>{$v.name}</option>
                                         </foreach>
                                     </select>
                                 </div>
@@ -66,8 +66,8 @@
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select id="status" name="status" class="form-control">
-                                        <option value="1" <if condition="$user.status eq 1">selected</if>>正常</option>
-                                        <option value="2" <if condition="$user.status neq 1">selected</if>>锁定</option>
+                                        <option value="1" <if condition="$data.status eq 1">selected</if>>正常</option>
+                                        <option value="2" <if condition="$data.status neq 1">selected</if>>锁定</option>
                                     </select>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                    <input type="hidden" name="id" value="{$user.id}" >
+                                    <input type="hidden" name="id" value="{$data.id}" >
                                     <button class="btn btn-primary" type="reset">Reset</button>
                                     <button type="submit" class="btn btn-success">Submit</button>
                                 </div>

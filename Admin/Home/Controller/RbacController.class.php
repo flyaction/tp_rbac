@@ -30,7 +30,7 @@ class RbacController extends CommonController {
                 $this->error('添加失败');
             }
         }else{
-            $role = M('role')->select();
+            $role = M('role')->where('status=1')->select();
             $this->assign('role',$role);
             $this->display();
         }
@@ -60,14 +60,14 @@ class RbacController extends CommonController {
             }
             $role = M('role')->field('id,name')->select();
             $this->assign('role',$role);
-            $this->assign('user',$data);
+            $this->assign('data',$data);
             $this->display();
         }
     }
 
     //角色列表
     public function role(){
-        $role = M('role')->select();
+        $role = M('role')->where('status=1')->select();
         $this->assign('role',$role);
         $this->display();
     }
@@ -75,18 +75,68 @@ class RbacController extends CommonController {
     //添加角色
     public function addRole(){
         if(IS_POST){
-            $role = array(
+            $data = array(
                 'name'=>I('post.name'),
-                'remark'=>md5(I('post.remark')),
+                'remark'=>I('post.remark'),
                 'status'=>I('post.status'),
             );
-            if(M('role')->add($role)){
+            if(M('role')->add($data)){
                 $this->success('添加成功',U(MODULE_NAME.'/Rbac/role'));
             }else{
                 $this->error('添加失败');
             }
         }else{
             $this->display();
+        }
+    }
+    //修改角色
+    public function editRole(){
+        if(IS_POST){
+            $data = array(
+                'id'=>I('post.id'),
+                'name'=>I('post.name'),
+                'remark'=>I('post.remark'),
+                'status'=>I('post.status'),
+            );
+            if(M('role')->save($data)){
+                $this->success('修改成功',U(MODULE_NAME.'/Rbac/user'));
+            }else{
+                $this->error('修改失败');
+            }
+        }else{
+            $id = I('get.id',0,'intval');
+            if(!$id || !$data = M('role')->where('id='.$id)->find()){
+                $this->error('非法请求!');
+            }
+            $this->assign('data',$data);
+            $this->display();
+        }
+    }
+
+    //删除角色
+    public function delRole(){
+        if(IS_POST){
+            $id = I('post.id');
+            $data = M('role')->where('id='.$id)->find();
+            $return = [];//预设返回
+            $return['status'] = 0;
+            if(!$data){
+                $return['errmsg'] = '数据不存在!';
+                $this->ajaxReturn($return);
+            }
+            $access = true;
+            if($sdata = M('access')->where('role_id='.$id)->find()){
+                if(M('access')->where('role_id='.$id)->delete() == false){
+                    $access = false;
+                }
+            }
+            if($access && M('role')->where('id='.$id)->delete()){
+                $return['status'] = 1;
+                $this->ajaxReturn($return);
+            }else{
+                $return['errmsg'] = '删除失败!';
+                $this->ajaxReturn($return);
+            }
         }
     }
 
@@ -112,7 +162,7 @@ class RbacController extends CommonController {
     //添加菜单
     public function addMenu(){
         if(IS_POST){
-            $menu = array(
+            $data = array(
                 'title'=>I('post.title'),
                 'pid'=>I('post.pid'),
                 'controller'=>I('post.controller'),
@@ -121,8 +171,8 @@ class RbacController extends CommonController {
                 'remark'=>I('post.remark'),
                 'show'=>I('post.show'),
             );
-            $menu['level'] = $menu['pid'] ? 2 : 1;
-            if(M('node')->add($menu)){
+            $data['level'] = $data['pid'] ? 2 : 1;
+            if(M('node')->add($data)){
                 $this->success('添加成功',U(MODULE_NAME.'/Rbac/menu'));
             }else{
                 $this->error('添加失败');
@@ -189,7 +239,7 @@ class RbacController extends CommonController {
             }
             $node = M('node')->field('id,pid,controller,action,title')->order('sort')->where(array('pid'=>0))->select();
             $this->assign('node',$node);
-            $this->assign('menu',$data);
+            $this->assign('data',$data);
             $this->display();
         }
     }

@@ -182,7 +182,7 @@ $(document).ready(function() {
 	init_sidebar();
 
 });
-// 以下是新增方法
+// 以下是新增方法,注意删除后要隐藏的div记得加class="singleData"
 function delData(obj){
     if(!confirm('您确定要删除吗?')){
         return false;
@@ -195,7 +195,8 @@ function delData(obj){
         data:{id:id},
         success:function(data){
             if(data.status != 0){
-                $(obj).parent().hide();
+                //window.location.reload();
+                $(obj).parents('.singleData').hide();
             }else{
                 alert(data.errmsg);
             }
