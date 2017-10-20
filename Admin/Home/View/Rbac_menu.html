@@ -30,7 +30,14 @@
                             <foreach name='menu' item='v'>
                             <thead>
                             <tr>
-                                <th>{$v.title}</th>
+                                <th>{$v.title}
+                                    <a href="{:U(MODULE_NAME.'/Rbac/editMenu',array('id'=>$v['id']))}" class="btn btn-info btn-xs"> <i class="fa fa-pencil"></i> 编辑 </a>
+                                    <if condition="$v.show eq 1">
+                                    <a href="javascript:;" class="btn btn-success btn-xs"><i class="fa fa-folder"></i> 显示</a>
+                                    <else/>
+                                    <a href="javascript:;" class="btn btn-dark btn-xs"><i class="fa fa-folder"></i> 不显示</a>
+                                    </if>
+                                    <a href="javascript:;" onclick="delData(this)" did="{$v.id}" durl="{:U(MODULE_NAME.'/Rbac/delMenu')}" class="btn btn-danger btn-xs"> <i class="fa fa-trash-o"></i> 删除 </a></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -39,9 +46,13 @@
                                     <foreach name="v.list" item="m">
                                     <div class="col-md-4 col-sm-4 col-xs-4">
                                         {$m.title}-{$m.controller}/{$m.action}
-                                        <a href="#" class="btn btn-info btn-xs"> <i class="fa fa-pencil"></i> 编辑 </a>
-                                        <a href="#" class="btn btn-success btn-xs"> <i class="fa fa-folder"></i> 显示 </a>
-                                        <a href="#" class="btn btn-danger btn-xs"> <i class="fa fa-trash-o"></i> 删除 </a>
+                                        <a href="{:U(MODULE_NAME.'/Rbac/editMenu',array('id'=>$m['id']))}" class="btn btn-info btn-xs"> <i class="fa fa-pencil"></i> 编辑 </a>
+                                        <if condition="$m.show eq 1">
+                                        <a href="javascript:;" class="btn btn-success btn-xs"><i class="fa fa-folder"></i> 显示</a>
+                                        <else/>
+                                        <a href="javascript:;" class="btn btn-dark btn-xs"><i class="fa fa-folder"></i> 未显示</a>
+                                        </if>
+                                        <a href="javascript:;" onclick="delData(this)" did="{$m.id}" durl="{:U(MODULE_NAME.'/Rbac/delMenu')}" class="btn btn-danger btn-xs"> <i class="fa fa-trash-o"></i> 删除 </a>
                                     </div>
                                     </foreach>
                                 </td>

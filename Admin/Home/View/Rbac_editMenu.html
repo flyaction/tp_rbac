@@ -5,7 +5,7 @@
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>系统管理 <small>添加菜单</small></h3>
+                <h3>系统管理 <small>修改菜单</small></h3>
             </div>
 
             <div class="title_right">
@@ -18,7 +18,7 @@
             <div class="col-md-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>添加菜单</h2>
+                        <h2>修改菜单</h2>
                         <ul class="nav navbar-right">
                             <a href="{:U(MODULE_NAME.'/Rbac/menu')}" class="btn btn-sm btn-primary">返回</a>
                         </ul>
@@ -26,13 +26,13 @@
                     </div>
                     <div class="x_content">
                         <br />
-                        <form id="form-user" data-parsley-validate class="form-horizontal form-label-left" method="post" action="{:U(MODULE_NAME.'/Rbac/addMenu')}">
+                        <form id="form-user" data-parsley-validate class="form-horizontal form-label-left" method="post" action="{:U(MODULE_NAME.'/Rbac/editMenu')}">
 
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">菜单名称 <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="title" name="title" required="required" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="title" name="title" required="required" class="form-control col-md-7 col-xs-12" value="{$menu.title}">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -40,9 +40,9 @@
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select id="pid" name="pid" class="form-control" required>
-                                        <option value="0">顶级菜单</option>
+                                        <option value="0" <if condition="$menu.pid eq 0">selected</if> >顶级菜单</option>
                                         <foreach name='node' item='v'>
-                                            <option value="{$v.id}">--{$v.title}[{$v.controller}/{$v.action}]</option>
+                                            <option value="{$v.id}" <eq name="menu.pid" value="$v.id">selected</eq> >--{$v.title}[{$v.controller}/{$v.action}]</option>
                                         </foreach>
                                     </select>
                                 </div>
@@ -51,28 +51,28 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="controller">控制器 <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="controller" name="controller" required="required" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="controller" name="controller" required="required" class="form-control col-md-7 col-xs-12" value="{$menu.controller}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="action">方法名 <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="action" name="action" required="required" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="action" name="action" required="required" class="form-control col-md-7 col-xs-12" value="{$menu.action}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="sort">排序 <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="sort" name="sort" required="required" class="form-control col-md-7 col-xs-12" value="0">
+                                    <input type="text" id="sort" name="sort" required="required" class="form-control col-md-7 col-xs-12" value="{$menu.sort}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="remark">说明
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="remark" name="remark" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="remark" name="remark" class="form-control col-md-7 col-xs-12" value="{$menu.remark}">
                                 </div>
                             </div>
 
@@ -81,8 +81,8 @@
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select id="show" name="show" class="form-control">
-                                        <option value="1">显示</option>
-                                        <option value="2">隐藏</option>
+                                        <option value="1" <if condition="$menu.show eq 1">selected</if> >显示</option>
+                                        <option value="2" <if condition="$menu.show neq 1">selected</if> >隐藏</option>
                                     </select>
                                 </div>
                             </div>
@@ -90,6 +90,7 @@
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <input type="hidden" name="id" value="{$menu.id}" >
                                     <button class="btn btn-primary" type="reset">Reset</button>
                                     <button type="submit" class="btn btn-success">Submit</button>
                                 </div>

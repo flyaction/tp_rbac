@@ -179,7 +179,31 @@ $('body').popover({
 });
 
 $(document).ready(function() {
-	init_sidebar();			
-});	
+	init_sidebar();
+
+});
+// 以下是新增方法
+function delData(obj){
+    if(!confirm('您确定要删除吗?')){
+        return false;
+    }
+    var id = $(obj).attr('did');
+    var url = $(obj).attr('durl');
+    $.ajax({
+        type:'POST',
+        url:url,
+        data:{id:id},
+        success:function(data){
+            if(data.status != 0){
+                $(obj).parent().hide();
+            }else{
+                alert(data.errmsg);
+            }
+        },
+        error:function(){
+            alert('异常!');
+        }
+    });
+}
 	
 
