@@ -29,6 +29,7 @@ class LoginController extends Controller {
 
        	session('admin_username',$user['username']);
         session('admin_realname',$user['realname']);
+        session('admin_roleid',$user['roleid']);
 
         if($user['username'] == C('RBAC_SUPERADMIN')){
             session(C('ADMIN_AUTH_KEY'), true);

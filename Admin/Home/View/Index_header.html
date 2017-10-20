@@ -44,27 +44,19 @@
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> 网站首页 </a></li>
-                  <li><a><i class="fa fa-edit"></i> 系统管理 <span class="fa fa-chevron-down"></span></a>
+                  <li><a href="{:U(MODULE_NAME.'/Index/index')}"><i class="fa fa-home"></i> 网站首页 </a></li>
+                  <if condition="$Think.session.menuList">
+                  <foreach name="Think.session.menuList" item="m">
+                  <li><a><i class="fa fa-edit"></i> {$m.title} <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{:U(MODULE_NAME.'/Rbac/user')}">用户列表</a></li>
-                      <li><a href="{:U(MODULE_NAME.'/Rbac/role')}">角色列表</a></li>
-                      <li><a href="{:U(MODULE_NAME.'/Rbac/menu')}">菜单列表</a></li>
+                      <foreach name="m.list" item="n">
+                      <li><a href="{:U(MODULE_NAME.'/'.$n[controller].'/'.$n[action])}">{$n.title}</a></li>
+                      </foreach>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="general_elements.html">General Elements</a></li>
-                      <li><a href="media_gallery.html">Media Gallery</a></li>
-                      <li><a href="typography.html">Typography</a></li>
-                      <li><a href="icons.html">Icons</a></li>
-                      <li><a href="glyphicons.html">Glyphicons</a></li>
-                      <li><a href="widgets.html">Widgets</a></li>
-                      <li><a href="invoice.html">Invoice</a></li>
-                      <li><a href="inbox.html">Inbox</a></li>
-                      <li><a href="calendar.html">Calendar</a></li>
-                    </ul>
-                  </li>
+                  </foreach>
+                  </if>
+
                 </ul>
               </div>
              
