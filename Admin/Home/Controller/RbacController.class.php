@@ -99,7 +99,7 @@ class RbacController extends CommonController {
                 'status'=>I('post.status'),
             );
             if(M('role')->save($data)){
-                $this->success('修改成功',U(MODULE_NAME.'/Rbac/user'));
+                $this->success('修改成功',U(MODULE_NAME.'/Rbac/role'));
             }else{
                 $this->error('修改失败');
             }
