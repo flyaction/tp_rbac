@@ -67,7 +67,7 @@ class RbacController extends CommonController {
 
     //角色列表
     public function role(){
-        $role = M('role')->where('status=1')->select();
+        $role = M('role')->select();
         $this->assign('role',$role);
         $this->display();
     }
@@ -109,6 +109,67 @@ class RbacController extends CommonController {
                 $this->error('非法请求!');
             }
             $this->assign('data',$data);
+            $this->display();
+        }
+    }
+
+    //角色分配
+    public function assignRole(){
+        if(IS_POST){
+            $id = I('post.id');
+            $access = I('post.access');
+            $data = [];
+            foreach ($access as $v){
+                $tmp = explode("_",$v);
+                $data[] = array(
+                    'role_id'=>$id,
+                    'node_id'=>$tmp[0],
+                    'level'=>$tmp[1]
+                );
+            }
+            if(!$data){
+                $this->error('配置不能为空!');
+            }
+
+            $handleDel = true;//清空角色之前配置的权限操作
+            $access = M('access');
+            if($access->where(array('role_id'=>$id))->find()){
+                $handleDel = $access ->where(array('role_id'=>$id))->delete();
+            }
+
+            if($handleDel && $access->addAll($data)){
+                $this->success('配置成功!',U(MODULE_NAME.'/Rbac/role'));
+            }else {
+                $this->error('配置失败!');
+            }
+
+        }else{
+            $id = I('get.id',0,'intval');
+            if(!$id || !$data = M('role')->where('id='.$id)->find()){
+                $this->error('非法请求!');
+            }
+            $node = M('node')->order('sort')->select();
+            $menu = [];
+            foreach($node as $k=>$v){
+                if($v['pid'] == 0){
+                    if(isset($menu[$v['id']])){
+                        $menu[$v['id']] = array_merge($v,$menu[$v['id']]);;
+                    }else{
+                        $menu[$v['id']] = $v;
+                    }
+                }else{
+                    $menu[$v['pid']]['list'][$v['id']] = $v;
+                }
+            }
+
+            $access = M('access')->field('node_id')->where('role_id='.$id)->select();
+            if($access){
+                $access = array_column($access,'node_id');
+            }
+            $this->assign('menu',$menu);
+            $this->assign('data',$data);
+            $this->assign('access',$access);
+
             $this->display();
         }
     }
