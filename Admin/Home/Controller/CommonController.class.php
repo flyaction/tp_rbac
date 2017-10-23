@@ -59,7 +59,8 @@ class CommonController extends Controller {
         $node = M('node')->field('id as node_id,title')->where($check)->find();
         if($node){
             $data = array_merge($data,$node);
+            return M('admin_log')->add($data);
         }
-        return M('admin_log')->add($data);
+
     }
 }
