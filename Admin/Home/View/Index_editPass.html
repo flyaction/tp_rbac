@@ -26,13 +26,21 @@
                     </div>
                     <div class="x_content">
                         <br />
-                        <form id="form-user" data-parsley-validate class="form-horizontal form-label-left" method="post" action="{:U(MODULE_NAME.'/Index/editUser')}">
+                        <form id="form-user" data-parsley-validate class="form-horizontal form-label-left" method="post" action="{:U(MODULE_NAME.'/Index/editPass')}">
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="userpass">用户密码 <span class="required">*</span>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="userpass">原密码 <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="password" id="userpass" name="userpass" class="form-control col-md-7 col-xs-12">
+                                    <input type="password" id="userpass" name="userpass" class="form-control col-md-7 col-xs-12" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="newuserpass">新密码 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="password" id="newuserpass" name="newuserpass" class="form-control col-md-7 col-xs-12" required>
                                 </div>
                             </div>
 

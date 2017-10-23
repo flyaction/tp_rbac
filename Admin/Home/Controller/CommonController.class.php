@@ -14,6 +14,12 @@ class CommonController extends Controller {
             $menuList = $this->getMenulist();
             session('menuList',$menuList);
         }
+        //获取页面栏目导航
+        if(CONTROLLER_NAME != 'Index'){
+            $pageNav = $this->getPageNav();
+            $this->assign('pageNav',$pageNav);
+        }
+
         //记录日志操作
         if(C('ACTION_OPEN_LOG') == 1){
             $this->addLog();
@@ -40,6 +46,26 @@ class CommonController extends Controller {
             }
         }
         return $menu;
+    }
+
+    private function getPageNav(){
+        $check = array(
+            'controller'=>CONTROLLER_NAME,
+            'action'=>ACTION_NAME,
+            'level'=>2
+        );
+        $pageNav = array();
+        $current = M('node')->field('id,pid,title')->where($check)->find();
+        if($current){
+            $parent = M('node')->field('id,pid,title')->where('id='.$current['pid'])->find();
+            if($parent){
+                $pageNav = array(
+                    'parent' => $parent['title'],
+                    'current' => $current['title']
+                );
+            }
+        }
+        return $pageNav;
     }
 
     private function addLog(){
