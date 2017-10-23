@@ -24,6 +24,6 @@ return array(
 
     'TMPL_ACTION_ERROR' => THINK_PATH . 'Tpl/action_jump.tpl',
     'TMPL_ACTION_SUCCESS' => THINK_PATH . 'Tpl/action_jump.tpl',
-    'TMPL_EXCEPTION_FILE' => THINK_PATH.'Tpl/my_think_exception.tpl',
+    'TMPL_EXCEPTION_FILE' => THINK_PATH.'Tpl/action_exception.tpl',
 
 );
