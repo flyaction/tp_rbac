@@ -6,6 +6,8 @@ return array(
         '__PUBLIC__'=>__ROOT__.'/'.APP_NAME.'/'.MODULE_NAME.'/View',
     ),
 
+    //是否开启日志
+    'ACTION_OPEN_LOG'=>1,//1 开启
 
     //RBAC
     'RBAC_SUPERADMIN' => 'admin',

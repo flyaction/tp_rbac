@@ -14,7 +14,10 @@ class CommonController extends Controller {
             $menuList = $this->getMenulist();
             session('menuList',$menuList);
         }
-
+        //记录日志操作
+        if(C('ACTION_OPEN_LOG') == 1){
+            $this->addLog();
+        }
     }
 
     private function getMenulist(){
@@ -39,4 +42,24 @@ class CommonController extends Controller {
         return $menu;
     }
 
+    private function addLog(){
+        $data = array(
+            'route'=>CONTROLLER_NAME.'/'.ACTION_NAME,
+            'url'=>'http://'.$_SERVER['SERVER_NAME'].':'.$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"],
+            'user_agent'=>$_SERVER['HTTP_USER_AGENT'],
+            'admin_id'=>session(C('USER_AUTH_KEY')),
+            'ip'=>get_client_ip(),
+            'addtime'=>date('Y-m-d H:i:s'),
+        );
+        $check = array(
+            'controller'=>CONTROLLER_NAME,
+            'action'=>ACTION_NAME,
+            'level'=>2,
+        );
+        $node = M('node')->field('id as node_id,title')->where($check)->find();
+        if($node){
+            $data = array_merge($data,$node);
+        }
+        return M('admin_log')->add($data);
+    }
 }

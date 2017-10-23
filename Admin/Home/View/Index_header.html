@@ -47,7 +47,7 @@
                   <li><a href="{:U(MODULE_NAME.'/Index/index')}"><i class="fa fa-home"></i> 网站首页 </a></li>
                   <if condition="$Think.session.menuList">
                   <foreach name="Think.session.menuList" item="m">
-                  <li><a><i class="fa fa-edit"></i> {$m.title} <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="{$m.logo}"></i> {$m.title} <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <foreach name="m.list" item="n">
                       <li><a href="{:U(MODULE_NAME.'/'.$n[controller].'/'.$n[action])}">{$n.title}</a></li>
