@@ -48,7 +48,7 @@ class RbacController extends CommonController {
             if($userpass=I('post.userpass')){
                 $data['userpass'] = md5($userpass);
             }
-            if(M('user')->save($data)){
+            if(M('admin')->save($data)){
                 $this->success('修改成功',U(MODULE_NAME.'/Rbac/user'));
             }else{
                 $this->error('修改失败');
