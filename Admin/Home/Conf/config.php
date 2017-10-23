@@ -22,4 +22,8 @@ return array(
     'RBAC_ACCESS_TABLE' => C('DB_PREFIX').'access',//权限表名称
     'RBAC_NODE_TABLE' => C('DB_PREFIX').'node',//节点表名称
 
+    'TMPL_ACTION_ERROR' => THINK_PATH . 'Tpl/action_jump.tpl',
+    'TMPL_ACTION_SUCCESS' => THINK_PATH . 'Tpl/action_jump.tpl',
+    'TMPL_EXCEPTION_FILE' => THINK_PATH.'Tpl/my_think_exception.tpl',
+
 );
