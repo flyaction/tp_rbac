@@ -68,6 +68,25 @@
                                     <input type="text" id="sort" name="sort" required="required" class="form-control col-md-7 col-xs-12" value="{$data.sort}">
                                 </div>
                             </div>
+
+                            <div class="form-group menuLogo">
+                                <label  class="control-label col-md-3 col-sm-3 col-xs-12">菜单logo<span class="required">*</span>
+                                </label>
+                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                    <div class="input-group-btn">
+                                        <button id="showlogo" type="button" class="btn btn-block btn-default" data-toggle="dropdown">
+                                            <a><i class="{$data.logo}"></i> {$data.logo} </a>
+                                        </button>
+                                        <input type="hidden" name="logo" value="{$data.logo}">
+                                        <ul class="dropdown-menu">
+                                            <foreach name="icons.list" item="v">
+                                                <li onclick="logoCheck(this);"><a><i class="{$v}"></i> {$v} </a></li>
+                                            </foreach>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="remark">说明
                                 </label>
@@ -117,6 +136,30 @@
 <script src="__PUBLIC__/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Custom Theme Scripts -->
 <script src="__PUBLIC__/build/js/custom.js"></script>
+
+<script>
+    $(function(){
+        icons_toggle();
+        $('select[name=pid]').change(function(){
+            icons_toggle();
+        })
+    })
+    function icons_toggle(){
+        var icons_check = $("select[name='pid']").val();
+        if (icons_check == 0) {
+            $('.menuLogo').show();
+        } else {
+            $('.menuLogo').hide();
+        }
+    }
+
+    function logoCheck(obj){
+        var nowClass = $(obj).find("i").attr("class");
+        $("#showlogo").val(nowClass);
+        $("#showlogo").html($(obj).find("a").html());
+        $("input[name=logo]").val(nowClass);
+    }
+</script>
 
 </body>
 </html>

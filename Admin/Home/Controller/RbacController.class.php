@@ -232,7 +232,9 @@ class RbacController extends CommonController {
                 'remark'=>I('post.remark'),
                 'show'=>I('post.show'),
             );
+            $data['logo'] = $data['pid'] ? '' : I('post.logo');
             $data['level'] = $data['pid'] ? 2 : 1;
+
             if(M('node')->add($data)){
                 $this->success('添加成功',U(MODULE_NAME.'/Rbac/menu'));
             }else{
@@ -241,6 +243,8 @@ class RbacController extends CommonController {
 
         }else{
             $node = M('node')->field('id,controller,action,title')->order('sort')->where(array('pid'=>0))->select();
+            $icons = getMenuIcons();
+            $this->assign('icons',$icons);
             $this->assign('node',$node);
             $this->display();
         }
@@ -299,6 +303,8 @@ class RbacController extends CommonController {
                 $this->error('非法请求!');
             }
             $node = M('node')->field('id,pid,controller,action,title')->order('sort')->where(array('pid'=>0))->select();
+            $icons = getMenuIcons();
+            $this->assign('icons',$icons);
             $this->assign('node',$node);
             $this->assign('data',$data);
             $this->display();
