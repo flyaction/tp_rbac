@@ -2,6 +2,7 @@
     if(C('LAYOUT_ON')) {
         echo '{__NOLAYOUT__}';
     }
+    $pwd = 'http://'.$_SERVER['HTTP_HOST'].'/Public';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -27,9 +28,9 @@
 				
 				<div id="cont_main_l">
 					<?php if(isset($message)) {?>
-						<img src="__PUBLIC__/build/images/icon_success.png" />
+						<img src="<?php echo $pwd;?>/images/icon_success.png" />
 					<?php }else{?>
-						<img src="__PUBLIC__/build/images/icon_failed.png" />
+						<img src="<?php echo $pwd;?>/images/icon_failed.png" />
 					<?php }?>
 				</div>	
 				<div id="cont_main_r">
