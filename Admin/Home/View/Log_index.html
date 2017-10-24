@@ -1,5 +1,8 @@
 
 <include file="Index:header" />
+
+<link href="__PUBLIC__/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />
+
 <!-- page content -->
 <div class="right_col" role="main">
     <div class="">
@@ -23,6 +26,32 @@
                         </ul>
                         <div class="clearfix"></div>
                     </div>
+
+                    <div class="x_title">
+                        <form action="__URL__/index" method="post">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label style="float:left;line-height:35px;">栏目名称:</label>
+                                    <div class="col-sm-2">
+                                        <input name="title" type="text" class="form-control" value="<if condition='$search.title'>{$search.title}</if>">
+                                    </div>
+                                    <label style="float:left;line-height:35px;">时间:</label>
+                                    <div class="col-xs-3">
+                                        <div class="from-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input type="text" class="form-control pull-right" id="reservation"placeholder="请选择时间段" name="time" value="<if condition='$search.time'>{$search.time}</if>"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">搜索</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
                     <div class="x_content">
                         <!-- start project list -->
                         <table id="datatable" class="table table-striped table-bordered projects">
@@ -31,32 +60,22 @@
                                 <th style="width: 1%">ID</th>
                                 <th style="width: 20%">用户名</th>
                                 <th>真实名字</th>
-                                <th>角色名</th>
-                                <th>上次登录时间</th>
-                                <th>状态</th>
+                                <th>栏目名称</th>
+                                <th>url</th>
+                                <th>ip</th>
+                                <th>时间</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <foreach name='user' item='v'>
+                            <foreach name='log' item='v'>
                             <tr class="singleData">
                                 <td>{$v.id}</td>
                                 <td>{$v.username}</td>
                                 <td>{$v.realname}</td>
-                                <td>
-                                <if condition="$v.username eq C('RBAC_SUPERADMIN')">
-                                    超级管理员
-                                <else/>
-                                    {$v.rolename}
-                                </if>
-                                </td>
-                                <td>{$v.logintime}</td>
-                                <td>
-                                    <if condition='$v.status eq 1'>
-                                        正常
-                                    <else/>
-                                        锁定
-                                    </if>
-                                </td>
+                                <td>{$v.title}</td>
+                                <td>{$v.url}</td>
+                                <td>{$v.ip}</td>
+                                <td>{$v.addtime}</td>
                             </tr>
                             </foreach>
                             </tbody>
@@ -83,13 +102,17 @@
 <script src="__PUBLIC__/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Custom Theme Scripts -->
 <script src="__PUBLIC__/build/js/custom.js"></script>
-
 <!-- Datatables -->
 <script src="__PUBLIC__/plugins/datatables.net/js/jquery.dataTables.js"></script>
 
+<!-- bootstrap-daterangepicker -->
+<script src="__PUBLIC__/plugins/moment/min/moment.min.js"></script>
+<script src="__PUBLIC__/plugins/bootstrap-daterangepicker/daterangepicker_zh.js"></script>
+
 <script>
     $(function(){
-        $('#datatable').dataTable();
+        $('#datatable').dataTable({"order": [[0, 'desc']]});
+        $('#reservation').daterangepicker();
     })
 </script>
 
