@@ -1,3 +1,9 @@
 ﻿## 简介
 
-THINKPHP RBAC
+Thinkphp RBAC权限管理系统
+
+
+
+
+
+

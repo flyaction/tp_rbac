@@ -1284,15 +1284,15 @@ table.countries_list td {
     line-height: 30px;
     border-top: 1px solid #eeeeee
 }
-.dataTables_paginate a {
-    padding: 6px 9px !important;
-    background: #ddd !important;
-    border-color: #ddd !important
-}
-.paging_full_numbers a.paginate_active {
-    background-color: rgba(38, 185, 154, 0.59) !important;
-    border-color: rgba(38, 185, 154, 0.59) !important
-}
+/*.dataTables_paginate a {*/
+    /*padding: 6px 9px !important;*/
+    /*background: #ddd !important;*/
+    /*border-color: #ddd !important*/
+/*}*/
+/*.paging_full_numbers a.paginate_active {*/
+    /*background-color: rgba(38, 185, 154, 0.59) !important;*/
+    /*border-color: rgba(38, 185, 154, 0.59) !important*/
+/*}*/
 button.DTTT_button,
 div.DTTT_button,
 a.DTTT_button {
