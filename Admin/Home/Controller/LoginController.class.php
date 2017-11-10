@@ -12,6 +12,10 @@ class LoginController extends Controller {
 
     	$username = I('post.username');
     	$userpass = I('post.userpass','','md5');
+        $code = I('post.code');
+        if(!$this->checkVerify($code)){
+            $this->error('验证码不正确!');
+        }
     	$user = M('admin')->where(array('username'=>$username))->find();
 
     	if(!$user){$this->error("用户不存在");}
@@ -38,5 +42,16 @@ class LoginController extends Controller {
         Rbac::saveAccessList();
 
     	$this->success('登录成功',U(MODULE_NAME.'/Index/index'));
+    }
+
+    public function getVerify(){
+        $Verify = new \Think\Verify();
+        $Verify->length   = 4;
+        $Verify->entry();
+    }
+
+    private function checkVerify($code, $id = ''){
+        $verify = new \Think\Verify();
+        return $verify->check($code, $id);
     }
 }
