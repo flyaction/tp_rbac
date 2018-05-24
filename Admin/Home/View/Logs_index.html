@@ -127,11 +127,11 @@
                     d.time = $('#reservation').val();
                 }
             },
-            bStateSave: true,//状态保存
+            bStateSave: false,//状态保存
             aLengthMenu : [20, 30, 50, 100, 150],
             bProcessing : true,
             bAutoWidth: false,
-            bFilter : true, //是否启动过滤、搜索功能
+            bFilter : false, //是否启动过滤、搜索功能
             bInfo : true, //是否显示页脚信息，DataTables插件左下角显示记录数
             createdRow: function ( row, data, index ) {
                 //$(row).addClass('text-c');

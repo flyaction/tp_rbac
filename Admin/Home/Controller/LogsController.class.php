@@ -82,7 +82,7 @@ class LogsController extends CommonController {
 
     public function show(){
 
-
+        echo I('get.id');
 
     }
 }
