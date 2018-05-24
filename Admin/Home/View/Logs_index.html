@@ -1,0 +1,176 @@
+
+<include file="Index:header" />
+
+<link href="__PUBLIC__/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />
+
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3> {$pageNav.parent} <small>{$pageNav.current}</small></h3>
+            </div>
+
+            <div class="title_right">
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>{$pageNav.current}</h2>
+                        <ul class="nav navbar-right">
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="x_title">
+                        <form action="__URL__/index" method="post">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label style="float:left;line-height:35px;">栏目名称:</label>
+                                    <div class="col-sm-2">
+                                        <input id="title" name="title" type="text" class="form-control" value="<if condition='$search.title'>{$search.title}</if>">
+                                    </div>
+                                    <label style="float:left;line-height:35px;">时间:</label>
+                                    <div class="col-xs-3">
+                                        <div class="from-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input type="text" class="form-control pull-right" id="reservation"placeholder="请选择时间段" name="time" value="<if condition='$search.time'>{$search.time}</if>"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary" id="search">搜索</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="x_content">
+                        <!-- start project list -->
+                        <table id="datatable" class="table table-striped table-bordered projects">
+                            <thead>
+                            <tr>
+                                <th><input type="checkbox" value=""></th>
+                                <th style="width: 1%">ID</th>
+                                <th>用户名</th>
+                                <th>真实名字</th>
+                                <th>栏目名称</th>
+                                <th>url</th>
+                                <th>ip</th>
+                                <th>时间</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                        </table>
+                        <!-- end project list -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+</div>
+<!-- /page content -->
+<!-- footer content -->
+<include file="Index:footer" />
+<!-- /footer content -->
+</div>
+</div>
+
+<!-- jQuery -->
+<script src="__PUBLIC__/plugins/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="__PUBLIC__/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Custom Theme Scripts -->
+<script src="__PUBLIC__/build/js/custom.js"></script>
+<!-- Datatables -->
+<script src="__PUBLIC__/plugins/datatables.net/js/jquery.dataTables.js"></script>
+<script src="__PUBLIC__/plugins/datatables.net-bs/js/dataTables.bootstrap.js"></script>
+
+<!-- bootstrap-daterangepicker -->
+<script src="__PUBLIC__/plugins/moment/min/moment.min.js"></script>
+<script src="__PUBLIC__/plugins/bootstrap-daterangepicker/daterangepicker_zh.js"></script>
+
+<script>
+    $(function(){
+        //$('#datatable').dataTable({"order": [[0, 'desc']]});
+        $('#reservation').daterangepicker();
+
+        tableLoad();
+
+        $('#search').click(function(){
+            if(tableData!=null || tableData !=undefined){
+                tableData.api().ajax.reload();
+            }else{
+                tableLoad();
+            }
+        })
+    })
+
+    var tableData;
+    var tableLoad = function(){
+        tableData = $('#datatable').dataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                "url":"{:U('Logs/index')}",
+                "data":function(d){    //额外传递的参数
+                    d.title = $('#title').val();
+                    d.time = $('#reservation').val();
+                }
+            },
+            bStateSave: true,//状态保存
+            aLengthMenu : [20, 30, 50, 100, 150],
+            bProcessing : true,
+            bAutoWidth: false,
+            bFilter : true, //是否启动过滤、搜索功能
+            bInfo : true, //是否显示页脚信息，DataTables插件左下角显示记录数
+            createdRow: function ( row, data, index ) {
+                //$(row).addClass('text-c');
+                //$('#count').html(data.recordsFiltered);
+            },
+            "fnInitComplete": function (oSettings, json) {
+                $('#title').val(json.search.title);
+                $('#time').val(json.search.time);
+            },
+            aoColumns: [
+                {
+                    "sClass": "text-center",
+                    "data": "id",
+                    "render": function (data, type, full, meta) {
+                        return '<input type="checkbox"  name="select"  value="' + data + '" />';
+                    },
+                    "bSortable": false
+                },
+                { "mData": "id" },
+                { "mData": "username"},
+                { "mData": "realname" },
+                { "mData": "title" },
+                { "mData": "url"},
+                { "mData": "ip"},
+                { "mData": "addtime"},
+                {
+                    "sClass": "text-center",
+                    "data": "id",
+                    "render": function (data, type, full, meta) {
+                        html = '<a href="__URL__/show/id/'+data+'" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> 查看 </a>';
+                        return html;
+                    },
+                    "bSortable": false
+                }
+            ]
+        });
+
+    };
+</script>
+
+</body>
+</html>
